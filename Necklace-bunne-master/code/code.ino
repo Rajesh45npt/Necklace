@@ -44,13 +44,18 @@ char Count = 1;
 
 void Custom_Delay( unsigned int delay_value)
 {
-  unsigned int Loop_Count = delay_value/10;
+  unsigned int Loop_Count = delay_value/100;
 
   while(Loop_Count)
   {
-    CheckState();
+    if(digitalRead(Servo_SequenceResumeButton) && !(Servo_StopState))
+      break;
+    
+    digitalWrite(Vibrator_ControlPin, LOW);
+    //CheckState();
     --Loop_Count;
-    delay(10);    
+    delay(100);
+    digitalWrite(Vibrator_ControlPin, HIGH);
   }
 }
 
@@ -96,12 +101,12 @@ char Sequence_Servo(int Servo_High,int Servo_Low,int Delay_Value, char count) {
       myservo2.writeMicroseconds(Servo_High);
       myservo3.writeMicroseconds(Servo_High);
       myservo4.writeMicroseconds(Servo_High);
-      digitalWrite(Vibrator_ControlPin, LOW);
+      //digitalWrite(Vibrator_ControlPin, LOW);
       delay(150);  
       myservo1.writeMicroseconds(Servo_Low);
      
       Serial.println("1");
-      delay(1.5*Delay_Value);
+      Custom_Delay(1.5*Delay_Value);
       
       break;
 
@@ -110,11 +115,11 @@ char Sequence_Servo(int Servo_High,int Servo_Low,int Delay_Value, char count) {
       myservo1.writeMicroseconds(Servo_High);     
       myservo3.writeMicroseconds(Servo_High);
       myservo4.writeMicroseconds(Servo_High);
-      digitalWrite(Vibrator_ControlPin, HIGH);
+      //digitalWrite(Vibrator_ControlPin, HIGH);
       delay(150);
       myservo2.writeMicroseconds(Servo_Low);
       Serial.println("2");
-      delay(Delay_Value);
+      Custom_Delay(1.5*Delay_Value);
      
       break;
       
@@ -126,7 +131,7 @@ char Sequence_Servo(int Servo_High,int Servo_Low,int Delay_Value, char count) {
       delay(150);
       myservo3.writeMicroseconds(Servo_Low);
       Serial.println("3");
-      delay(Delay_Value);
+      Custom_Delay(1.5*Delay_Value);
      
       break;
 
