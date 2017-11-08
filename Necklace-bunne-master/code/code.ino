@@ -44,7 +44,7 @@ char Count = 1;
 
 void Custom_Delay( unsigned int delay_value)
 {
-  unsigned int Loop_Count = delay_value/100;
+  unsigned int Loop_Count = delay_value/200;
 
   while(Loop_Count)
   {
@@ -56,6 +56,7 @@ void Custom_Delay( unsigned int delay_value)
     --Loop_Count;
     delay(100);
     digitalWrite(Vibrator_ControlPin, HIGH);
+    delay(100);
   }
 }
 
