@@ -210,19 +210,8 @@ void setup() {
 } 
 
 void loop() {
-
-   CheckState();
-  if(Servo_StopState)
-  {
-   
-    Count = 1;
-  }
-    
   
-  else if(Servo_ResumeState)
-  {
-    //Serial.println("Run Condition");
-    Pot_Value=analogRead(Pot_Pin_Delay);                                //Pot value is read from Delay pot
+   Pot_Value=analogRead(Pot_Pin_Delay);                                //Pot value is read from Delay pot
     Delay_Value=map(Pot_Value,0,1023,Delay_Map_Low,Delay_Map_High);     //Pot value is mapped to a real Delay of 500 ms to 5000 ms.
     
     Motor_Speed_Read_Value = analogRead(ReloadMotor_PotPin);          //Pot analog value for dutycycle of the reloading motor
@@ -255,6 +244,19 @@ void loop() {
     Serial.print(" ");
     Serial.println(Servo_Low);
     
+
+   CheckState();
+  if(Servo_StopState)
+  {
+   
+    Count = 1;
+  }
+    
+  
+  else if(Servo_ResumeState)
+  {
+    //Serial.println("Run Condition");
+   
    
     //Serial.println(Servo_StopState);
     //Serial.println(Servo_ResumeState);
