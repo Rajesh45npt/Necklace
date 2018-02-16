@@ -200,6 +200,19 @@ void setup() {
   myservo4.attach(Servo4);      //Servo 4th initialized
   pinMode(Vibrator_ControlPin, OUTPUT);
   digitalWrite(Vibrator_ControlPin, LOW);
+  
+  Servo_High_Read_Value=analogRead(Pot_Pin_Servo_High);                                 //Pot value is read from Servo High
+  Servo_High=map(Servo_High_Read_Value,0,1023,Servo_Map_High_Low,Servo_Map_High_High);  //Pot value is mapped to a real PWM value of Servo High from 1950 ms to 2100 ms
+    
+  Servo_Low_Read_Value=analogRead(Pot_Pin_Servo_Low);                                 //Pot value is read from Servo Low
+  Servo_Low=map(Servo_Low_Read_Value,0,1023,Servo_Map_Low_Low,Servo_Map_Low_High);    //Pot value is mapped to a real PWM value of Servo Low from 1900 ms to 2100 ms
+
+   
+  if(Servo_Low > Servo_High)
+    Servo_Low = Servo_High;
+  else if(Servo_High < Servo_Low)
+    Servo_High = Servo_Low;
+  
   StopStateCompute();
 
   
